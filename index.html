@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Multiple Choice Questions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+</head>
+<body>
+    <header id="header">
+        <div class="courseTitle">
+            <div class="logo"><a href="#"><img src="https://dzwonsemrish7.cloudfront.net/items/0j0E1L2F3o3k2E3W0e1w/th-logo-15.png?v=362c13cd" alt="logo"></a></div>
+            <div>
+                <h1>HackerYou Javascript Fundamentals</h1>
+                <span>Join Code 236526</span>
+            </div>
+        </div>
+        <ul class="nav-tabs">
+            <li class="active">Classroom</li>
+            <li>Homework</li>
+            <li>Gradebook</li>
+        </ul>
+        <ul>
+            <li><i class="material-icons">help</i></li>
+            <li><i class="material-icons">settings</i></li>
+        </ul>
+    </header>
+
+    <div class="wrapper">
+    <!--Sidebar area-->
+        <div id="sidebar">
+            <h3>Classroom</h3>
+            <h4>Slides</h4>
+            <ul class="slides">
+                <li>
+                    <img src="assets/slides.svg" class="icon"/>
+                    <div class="questionTitle">
+                        <h2>Lecture 0 Slides</h2>
+                    </div>
+                </li>
+            </ul>
+            <h4>Presenting</h4>
+            <ul class="open"></ul>
+
+            <h4>Recently Graded</h4>
+            <ul class="graded">
+                <li>    
+                    <img src="assets/ic-question-closed-24.svg" class="icon">
+                    <div class="questionTitle">
+                        <h2>Question 1</h2>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main content will populate here-->
+        <div class="content">
+        <div id="slidesContainer" >
+            <div class="currentSlide">
+                <img src="assets/1.png" alt="slide 1">
+            </div>
+            <div class="slideControl">
+               <div>
+                    <button class="leftButton">
+                        <img src="assets/left.svg" alt="left arrow">
+                    </button>
+                    <button class="rightButton">
+                        <img src="assets/right.svg" alt="right arrow">
+                    </button>
+               </div>
+               <div class="slideNumber">
+                   <span>Slide 
+                        <span class="first">1</span>
+                        /
+                        <span class="last">1</span>
+                   </span>
+               </div>
+               <div>
+                    <button class="fullScreen">
+                            <img src="assets/fullscreen.svg" alt="right arrow">
+                    </button>
+            </div>
+            </div>
+        </div>
+
+        <div id="questionContainer">
+        </div>
+        </div>
+    </div>
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="scripts.js"></script>
+    <!--I added a second scripts page so I could do the slider work there using namespaces-->
+    <!-- I didn't feel like refactoring it all 😆 wanted a bit of a fresh start -->
+    <script src="slidesScripts.js"></script>
+
+</body>
+</html>
