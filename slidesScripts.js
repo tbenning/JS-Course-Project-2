@@ -88,6 +88,38 @@ slideApp.toggleFullScreen = function(elem){
     }
 }
 
+slideApp.toggleControl = function(){
+    $('.slideControl').toggleClass('show')
+    //if you hover over NOT the toolbar then
+    
+    // setTimeout(function(){
+    //      $('.slideControl').removeClass('show')
+    // }, 1500);
+}
+
+slideApp.listenControlBar = function(){
+    //Listeners to fade in the control bar UI 
+    $('#slidesContainer .currentSlide').on('click', function(){
+        slideApp.toggleControl('show');
+    });
+
+    $('#slidesContainer .currentSlide').mouseover(function(){
+        $('.slideControl').addClass('show');
+    });
+    $('#slidesContainer .currentSlide').mousemove(function(){
+        //slideApp.addClass();
+        console.log('move mouse');
+        $('.slideControl').removeClass('show');
+    });
+
+    $('.slideControl, .slideControl button').mouseover(function(){
+        $('.slideControl').addClass('show');
+    })
+    $('.slideControl, .slideControl button').mousemove(function(){
+        $('.slideControl').addClass('show');
+    });
+}
+
 slideApp.init = function(){
     console.log('init');
 
@@ -117,8 +149,8 @@ slideApp.init = function(){
     // Set the number of slides in slide label
     $('.slideNumber .last').text(slideData.length);
 
-    //Listen for hover & for tap and fadeout that bar
-
+    // Listen control bar
+    slideApp.listenControlBar();
 }
 
 $(function(){

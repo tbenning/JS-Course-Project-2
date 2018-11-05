@@ -1,18 +1,18 @@
+// Data to fetch 
+const questions = [
+    {
+        title: 'Question 2',
+        prompt: 'How comfortable are you with programming?',
+        answers: {
+            a: "Less Comfortable",
+            b: "Somewhere in Between",
+            c: "More Comfortable"
+        },
+        correctAnswer: "d",
+    }
+];
+
 $(function() { 
-// Question data to load into Question container
-    const questions = [
-        {
-            title: 'Question 2',
-            prompt: 'How comfortable do you feel with code?',
-            answers: {
-                a: "Less Comfortable",
-                b: "Somewhere in Between",
-                c: "More Comfortable"
-            },
-            correctAnswer: "d",
-        }
-    ];
-    
     // Build questions
     function buildQuestions () {
         for (let thisQuestion in questions){ 
@@ -20,24 +20,25 @@ $(function() {
             const sidebarItem = `
                 <li>
                     <img src="assets/ic-question-24.svg" class="icon"/>
-                    <div class="questionTitle">
+                    <div class="questionTitle sidebar-${thisQuestion}">
                         <h2>${questions[thisQuestion].title}</h2>
+                        <span class="submissionStatus">Unanswered</span>
                     </div>
                 </li>
             `
             //Render out items 
             $('#sidebar ul.open').append(sidebarItem);
-            $('#sidebar ul.slides li:first-child').addClass('active');
+            $('#sidebar ul.open li:first-child').addClass('active');
             
             //Build the header of the questions
             const header = `
             <div class="question-${thisQuestion} question">
                 <div class="questionHeader">
+                    <img src="assets/ic-question-24.svg" class="icon"/>
                     <h1>${questions[thisQuestion].title}</h1>
-                    <p>Unanswered</p>
                 </div>
                 <div class="questionPrompt">
-                    <p>${questions[thisQuestion].prompt}</p>
+                    <p class="prompt">${questions[thisQuestion].prompt}</p>
                     <form action="" class="questionForm"></form>
                 </div>
             </div>   
@@ -52,7 +53,7 @@ $(function() {
             for (choice in questionAnswers){
                 $('.question-' + thisQuestion + ' .questionForm').append(`
                 <label class="container">
-                    <span class="answer">${choice}. ${questionAnswers[choice]}</span>
+                    <span class="answer"><span class="answerLetter">${choice}</span> ${questionAnswers[choice]}</span>
                     <input type="radio" name="radio" value="${choice}">
                     <span class="checkmark"></span>
                 </label>`
@@ -62,6 +63,7 @@ $(function() {
             const questionFooter = `
                 <div class="questionFooter">
                     <button type="submit" class="submitButton">Submit</button>
+                    <p class="answerStatus">Unanswered</p>
                 </div>`;
             $(`.question-${thisQuestion} .questionForm`).append(questionFooter);
         };
@@ -77,14 +79,22 @@ $(function() {
 
         // Assign the correct answer 
         const correctAnswer = questions[thisQuestion].correctAnswer;
-
         if (userAnswer == correctAnswer) {
             //alert('✅ Congrats! You have the correct answer!')
         } else {
             //alert('❌ Whoops! Looks like you\'re incorrect. Try again.')           
         }   
 
-        $(`.question-${thisQuestion} .questionHeader p`).text('Answered');
+
+
+
+        // Make question appear "answered" 
+        $(`.question-${thisQuestion} .questionFooter p`).html(`Answered`);
+        $(`.question-${thisQuestion} .questionFooter p`).addClass('answered');
+        $(`.sidebar-${thisQuestion}`).addClass('answered');
+        $(`.sidebar-${thisQuestion} .submissionStatus`).text(`Answered`);
+        $(`.question-${thisQuestion} button`).addClass('disabled')
+        
     } 
 
     buildQuestions();
@@ -94,10 +104,14 @@ $(function() {
         $(`.question-${thisQuestion} .container`).on('click', function(){
             $(`.question-${thisQuestion} .container`).removeClass('selected');
             $(this).addClass('selected');
+            $(`.question-${thisQuestion} button`).removeClass('disabled');
         });
         // Check if on submission if the answer is correct
         $(`.question-${thisQuestion} form`).on('submit', function () {
             checkAnswer(event, thisQuestion);
+            $(`.question-${thisQuestion} .container.answered`).removeClass('answered');
+            $('.selected', this).addClass('answered');
+           
         });
     }
 
